@@ -20,27 +20,6 @@ class cityPoint extends \quadTreeXYPoint
 }
 
 
-function readCities($filename) {
-    echo "Loading cities: ";
-
-    $file = new \SplFileObject($filename);
-    $file->setFlags(SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
-
-    while (!$file->eof()) {
-        $cityData = $file->fgetcsv();
-        if (!empty($cityData[0])) {
-            $city = new cityPoint(
-                $cityData[0],
-                $cityData[1],
-                $cityData[3],
-                $cityData[2]
-            );
-            yield $city;
-        }
-    }
-    echo PHP_EOL;
-}
-
 function buildQuadTree($filename) {
     //  Set the centrepoint of our QuadTree at 0.0 Longitude, 0.0 Latitude
     $centrePoint = new quadTreeXYPoint(0.0, 0.0);
@@ -49,14 +28,26 @@ function buildQuadTree($filename) {
     //  Create our QuadTree
     $quadTree = new PointQuadTree($quadTreeBoundingBox);
 
+    echo "Loading cities: ";
+    $cityFile = new \SplFileObject($filename);
+    $cityFile->setFlags(SplFileObject::READ_CSV | SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
+
     //  Populate our new QuadTree with cities from around the world
     $cityCount = 0;
-    foreach(readCities($filename) as $city) {
-        if ($cityCount % 1000 == 0) echo '.';
-        $quadTree->insert($city);
-        ++$cityCount;
+    foreach($cityFile as $cityData) {
+        if (!empty($cityData[0])) {
+            if ($cityCount % 1000 == 0) echo '.';
+            $city = new cityPoint(
+                $cityData[0],
+                $cityData[1],
+                $cityData[3],
+                $cityData[2]
+            );
+            $quadTree->insert($city);
+            ++$cityCount;
+        }
     }
-    echo "Added $cityCount cities to QuadTree", PHP_EOL;
+    echo PHP_EOL, "Added $cityCount cities to QuadTree", PHP_EOL;
     return $quadTree;
 }
 

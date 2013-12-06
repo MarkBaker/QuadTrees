@@ -22,28 +22,6 @@ class lunarLandingPoint extends \quadTreeXYPoint
 }
 
 
-function readLunarLandings($filename) {
-    echo "Loading lunarLandings: ";
-
-    $file = new \SplFileObject($filename);
-    $file->setFlags(SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
-
-    while (!$file->eof()) {
-        $lunarLandingData = $file->fgetcsv();
-        if (!empty($lunarLandingData[0])) {
-            $lunarLanding = new lunarLandingPoint(
-                trim($lunarLandingData[0]),
-                trim($lunarLandingData[1]),
-                trim($lunarLandingData[2]),
-                trim($lunarLandingData[4]),
-                trim($lunarLandingData[3])
-            );
-            yield $lunarLanding;
-        }
-    }
-    echo PHP_EOL;
-}
-
 function buildQuadTree($filename) {
     //  Set the centrepoint of our QuadTree at 0.0 Longitude, 0.0 Latitude
     $centrePoint = new quadTreeXYPoint(0.0, 0.0);
@@ -52,14 +30,27 @@ function buildQuadTree($filename) {
     //  Create our QuadTree
     $quadTree = new PointQuadTree($quadTreeBoundingBox);
 
+    echo "Loading lunarLandings: ";
+    $landingFile = new \SplFileObject($filename);
+    $landingFile->setFlags(SplFileObject::READ_CSV | SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
+
     //  Populate our new QuadTree with lunarLandings from around the world
     $lunarLandingCount = 0;
-    foreach(readLunarLandings($filename) as $lunarLanding) {
-        if ($lunarLandingCount % 1000 == 0) echo '.';
-        $quadTree->insert($lunarLanding);
-        ++$lunarLandingCount;
+    foreach($landingFile as $lunarLandingData) {
+        if (!empty($lunarLandingData[0])) {
+            if ($lunarLandingCount % 10 == 0) echo '.';
+            $lunarLanding = new lunarLandingPoint(
+                trim($lunarLandingData[0]),
+                trim($lunarLandingData[1]),
+                trim($lunarLandingData[2]),
+                trim($lunarLandingData[4]),
+                trim($lunarLandingData[3])
+            );
+            $quadTree->insert($lunarLanding);
+            ++$lunarLandingCount;
+        }
     }
-    echo "Added $lunarLandingCount lunarLandings to QuadTree", PHP_EOL;
+    echo PHP_EOL, "Added $lunarLandingCount lunar landing details to QuadTree", PHP_EOL;
     return $quadTree;
 }
 
