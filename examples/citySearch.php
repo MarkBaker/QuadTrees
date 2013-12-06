@@ -6,8 +6,8 @@ include __DIR__ . '/../src/PointQuadTree.php';
 
 
 //  Create a class for our data,
-//      extending quadTreeXYPoint so that we can use it for data points in our QuadTree
-class cityPoint extends \quadTreeXYPoint
+//      extending QuadTreeXYPoint so that we can use it for data points in our QuadTree
+class cityPoint extends QuadTreeXYPoint
 {
     public $country;
     public $city;
@@ -22,15 +22,15 @@ class cityPoint extends \quadTreeXYPoint
 
 function buildQuadTree($filename) {
     //  Set the centrepoint of our QuadTree at 0.0 Longitude, 0.0 Latitude
-    $centrePoint = new quadTreeXYPoint(0.0, 0.0);
+    $centrePoint = new QuadTreeXYPoint(0.0, 0.0);
     //  Set the bounding box to the entire globe
-    $quadTreeBoundingBox = new quadTreeBoundingBox($centrePoint, 360, 180);
+    $quadTreeBoundingBox = new QuadTreeBoundingBox($centrePoint, 360, 180);
     //  Create our QuadTree
     $quadTree = new PointQuadTree($quadTreeBoundingBox);
 
     echo "Loading cities: ";
     $cityFile = new \SplFileObject($filename);
-    $cityFile->setFlags(SplFileObject::READ_CSV | SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
+    $cityFile->setFlags(\SplFileObject::READ_CSV | \SplFileObject::DROP_NEW_LINE | \SplFileObject::SKIP_EMPTY);
 
     //  Populate our new QuadTree with cities from around the world
     $cityCount = 0;
@@ -68,7 +68,7 @@ echo 'Peak Memory: ', sprintf('%.2f',(memory_get_peak_usage(false) / 1024 )), ' 
 $startTime = microtime(true);
 
 //  Create a bounding box to search in, centred on the specified longitude and latitude
-$searchCentrePoint = new quadTreeXYPoint($longitude, $latitude);
+$searchCentrePoint = new QuadTreeXYPoint($longitude, $latitude);
 //  Create the bounding box with specified dimensions
 $searchBoundingBox = new quadTreeBoundingBox($searchCentrePoint, $width, $height);
 //  Search the cities QuadTree for all entries that fall within the defined bounding box

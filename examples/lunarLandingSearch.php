@@ -6,8 +6,8 @@ include __DIR__ . '/../src/PointQuadTree.php';
 
 
 //  Create a class for our data,
-//      extending quadTreeXYPoint so that we can use it for data points in our QuadTree
-class lunarLandingPoint extends \quadTreeXYPoint
+//      extending QuadTreeXYPoint so that we can use it for data points in our QuadTree
+class lunarLandingPoint extends QuadTreeXYPoint
 {
     public $name;
     public $launchDate;
@@ -24,15 +24,15 @@ class lunarLandingPoint extends \quadTreeXYPoint
 
 function buildQuadTree($filename) {
     //  Set the centrepoint of our QuadTree at 0.0 Longitude, 0.0 Latitude
-    $centrePoint = new quadTreeXYPoint(0.0, 0.0);
+    $centrePoint = new QuadTreeXYPoint(0.0, 0.0);
     //  Set the bounding box to the entire globe
-    $quadTreeBoundingBox = new quadTreeBoundingBox($centrePoint, 360, 180);
+    $quadTreeBoundingBox = new QuadTreeBoundingBox($centrePoint, 360, 180);
     //  Create our QuadTree
     $quadTree = new PointQuadTree($quadTreeBoundingBox);
 
     echo "Loading lunarLandings: ";
     $landingFile = new \SplFileObject($filename);
-    $landingFile->setFlags(SplFileObject::READ_CSV | SplFileObject::DROP_NEW_LINE | SplFileObject::SKIP_EMPTY);
+    $landingFile->setFlags(\SplFileObject::READ_CSV | \SplFileObject::DROP_NEW_LINE | \SplFileObject::SKIP_EMPTY);
 
     //  Populate our new QuadTree with lunarLandings from around the world
     $lunarLandingCount = 0;
@@ -71,9 +71,9 @@ echo 'Peak Memory: ', sprintf('%.2f',(memory_get_peak_usage(false) / 1024 )), ' 
 $startTime = microtime(true);
 
 //  Create a bounding box to search in, centred on the specified longitude and latitude
-$searchCentrePoint = new quadTreeXYPoint($longitude, $latitude);
+$searchCentrePoint = new QuadTreeXYPoint($longitude, $latitude);
 //  Create the bounding box with specified dimensions
-$searchBoundingBox = new quadTreeBoundingBox($searchCentrePoint, $width, $height);
+$searchBoundingBox = new QuadTreeBoundingBox($searchCentrePoint, $width, $height);
 //  Search the lunarLandings QuadTree for all entries that fall within the defined bounding box
 $searchResult = $lunarLandingsQuadTree->search($searchBoundingBox);
 
