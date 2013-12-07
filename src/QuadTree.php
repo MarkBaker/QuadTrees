@@ -1,9 +1,14 @@
 <?php
 
-include __DIR__ . '/QuadTreeBoundingBox.php';
-
-
-class PointQuadTree
+/**
+ *
+ * QuadTree class
+ *
+ * @package QuadTree
+ * @copyright  Copyright (c) 2013 Mark Baker (https://github.com/MarkBaker/Tries)
+ * @license    http://www.gnu.org/licenses/lgpl-3.0.txt    LGPL
+ */
+class QuadTree
 {
     /**
      * Default for the maximum number of points that can be stored in any individual QuadTree node
@@ -37,28 +42,28 @@ class PointQuadTree
     /**
      * QuadTree node for the North-West quadrant of this QuadTree node
      *
-     * @var   PointQuadTree
+     * @var   QuadTree
      **/
     protected $northWest;
 
     /**
      * QuadTree node for the North-East quadrant of this QuadTree node
      *
-     * @var   PointQuadTree
+     * @var   QuadTree
      **/
     protected $northEast;
 
     /**
      * QuadTree node for the South-West quadrant of this QuadTree node
      *
-     * @var   PointQuadTree
+     * @var   QuadTree
      **/
     protected $southWest;
 
     /**
      * QuadTree node for the South-East quadrant of this QuadTree node
      *
-     * @var   PointQuadTree
+     * @var   QuadTree
      **/
     protected $southEast;
 
@@ -119,7 +124,7 @@ class PointQuadTree
         $centrePointX = $this->boundingBox->getCentrePoint()->getX();
         $centrePointY = $this->boundingBox->getCentrePoint()->getY();
 
-        $this->northWest = new PointQuadTree(
+        $this->northWest = new QuadTree(
             new QuadTreeBoundingBox(
                 new QuadTreeXYPoint(
                     $centrePointX - $width / 2,
@@ -130,7 +135,7 @@ class PointQuadTree
             ),
             $this->maxPoints
         );
-        $this->northEast = new PointQuadTree(
+        $this->northEast = new QuadTree(
             new QuadTreeBoundingBox(
                 new QuadTreeXYPoint(
                     $centrePointX + $width / 2,
@@ -141,7 +146,7 @@ class PointQuadTree
             ),
             $this->maxPoints
         );
-        $this->southWest = new PointQuadTree(
+        $this->southWest = new QuadTree(
             new QuadTreeBoundingBox(
                 new QuadTreeXYPoint(
                     $centrePointX - $width / 2,
@@ -152,7 +157,7 @@ class PointQuadTree
             ),
             $this->maxPoints
         );
-        $this->southEast = new PointQuadTree(
+        $this->southEast = new QuadTree(
             new QuadTreeBoundingBox(
                 new QuadTreeXYPoint(
                     $centrePointX + $width / 2,

@@ -2,7 +2,7 @@
 
 list(, $longitude, $latitude, $width, $height) = $argv + array(NULL, 0, 0, 40, 40);
 
-include __DIR__ . '/../src/PointQuadTree.php';
+include('../src/QuadTreeAutoloader.php');
 
 
 //  Create a class for our data,
@@ -28,7 +28,7 @@ function buildQuadTree($filename) {
     //  Set the bounding box to the entire globe
     $quadTreeBoundingBox = new QuadTreeBoundingBox($centrePoint, 360, 180);
     //  Create our QuadTree
-    $quadTree = new PointQuadTree($quadTreeBoundingBox);
+    $quadTree = new QuadTree($quadTreeBoundingBox);
 
     echo "Loading lunarLandings: ";
     $landingFile = new \SplFileObject($filename);
