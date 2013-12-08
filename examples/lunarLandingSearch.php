@@ -7,7 +7,7 @@ include('../src/QuadTreeAutoloader.php');
 
 //  Create a class for our data,
 //      extending QuadTreeXYPoint so that we can use it for data points in our QuadTree
-class lunarLandingPoint extends QuadTreeXYPoint
+class lunarLandingPoint extends \QuadTrees\QuadTreeXYPoint
 {
     public $name;
     public $launchDate;
@@ -24,11 +24,11 @@ class lunarLandingPoint extends QuadTreeXYPoint
 
 function buildQuadTree($filename) {
     //  Set the centrepoint of our QuadTree at 0.0 Longitude, 0.0 Latitude
-    $centrePoint = new QuadTreeXYPoint(0.0, 0.0);
+    $centrePoint = new \QuadTrees\QuadTreeXYPoint(0.0, 0.0);
     //  Set the bounding box to the entire globe
-    $quadTreeBoundingBox = new QuadTreeBoundingBox($centrePoint, 360, 180);
+    $quadTreeBoundingBox = new \QuadTrees\QuadTreeBoundingBox($centrePoint, 360, 180);
     //  Create our QuadTree
-    $quadTree = new QuadTree($quadTreeBoundingBox);
+    $quadTree = new \QuadTrees\QuadTree($quadTreeBoundingBox);
 
     echo "Loading lunarLandings: ";
     $landingFile = new \SplFileObject($filename);
@@ -71,9 +71,9 @@ echo 'Peak Memory: ', sprintf('%.2f',(memory_get_peak_usage(false) / 1024 )), ' 
 $startTime = microtime(true);
 
 //  Create a bounding box to search in, centred on the specified longitude and latitude
-$searchCentrePoint = new QuadTreeXYPoint($longitude, $latitude);
+$searchCentrePoint = new \QuadTrees\QuadTreeXYPoint($longitude, $latitude);
 //  Create the bounding box with specified dimensions
-$searchBoundingBox = new QuadTreeBoundingBox($searchCentrePoint, $width, $height);
+$searchBoundingBox = new \QuadTrees\QuadTreeBoundingBox($searchCentrePoint, $width, $height);
 //  Search the lunarLandings QuadTree for all entries that fall within the defined bounding box
 $searchResult = $lunarLandingsQuadTree->search($searchBoundingBox);
 

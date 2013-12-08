@@ -31,22 +31,20 @@ class QuadTreeAutoloader
      *
      * @param    string    $pClassName        Name of the object to load
      */
-    public static function Load($pClassName) {
-        if ((class_exists($pClassName, FALSE)) || (strpos($pClassName, 'QuadTree') !== 0)) {
-            //    Either already loaded, or not a QuadTree class request
-            return FALSE;
+    public static function Load($className) {
+        $className = ltrim($className, '\\');
+        $fileName  = '';
+        $namespace = '';
+        if ($lastNsPos = strrpos($className, '\\')) {
+            $namespace = substr($className, 0, $lastNsPos);
+            $className = substr($className, $lastNsPos + 1);
+            $fileName  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
+        if ($namespace !== 'QuadTrees')
+            return false;
+        $fileName = __DIR__ . DIRECTORY_SEPARATOR . $className . '.php';
 
-        $pClassFilePath = __DIR__ .
-                          DIRECTORY_SEPARATOR .
-                          $pClassName .
-                          '.php';
-
-        if ((file_exists($pClassFilePath) === FALSE) || (is_readable($pClassFilePath) === FALSE)) {
-            //    Can't load
-            return FALSE;
-        }
-        require($pClassFilePath);
+        require $fileName;
     }    //    function Load()
 
 }

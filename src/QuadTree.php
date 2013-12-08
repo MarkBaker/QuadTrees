@@ -1,5 +1,7 @@
 <?php
 
+namespace QuadTrees;
+
 /**
  *
  * QuadTree class

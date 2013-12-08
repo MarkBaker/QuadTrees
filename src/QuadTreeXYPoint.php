@@ -1,5 +1,7 @@
 <?php
 
+namespace QuadTrees;
+
 /**
  *
  * QuadTree X/Y Point class
