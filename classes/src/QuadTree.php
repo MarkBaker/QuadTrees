@@ -77,9 +77,13 @@ class QuadTree
      * @param   integer              $maxPoints     The maximum number of X/Y points to store in this node
      *                                                  before it splits
      */
-    public function __construct(QuadTreeBoundingBox $boundingBox, $maxPoints = self::QUADTREE_NODE_CAPACITY) {
-        if (!is_numeric($maxPoints) || $maxPoints < 1)
-            throw new \InvalidArgumentException("Maximum number of points to store in this node must be a positive integer");
+    public function __construct(QuadTreeBoundingBox $boundingBox, $maxPoints = self::QUADTREE_NODE_CAPACITY)
+    {
+        if (!is_numeric($maxPoints) || $maxPoints < 1) {
+            throw new \InvalidArgumentException(
+                "Maximum number of points to store in this node must be a positive integer"
+            );
+        }
         $this->boundingBox = $boundingBox;
         $this->maxPoints = intval($maxPoints);
     }
@@ -90,7 +94,8 @@ class QuadTree
      * @param    QuadTreeXYPoint    $point    The new point to insert in this QuadTree node
      * @return   boolean
      **/
-    public function insert(QuadTreeXYPoint $point) {
+    public function insert(QuadTreeXYPoint $point)
+    {
         if (!$this->boundingBox->containsPoint($point)) {
             return false;
         }
@@ -100,16 +105,16 @@ class QuadTree
             //    then the point simply goes here and we're finished
             $this->points[] = $point;
             return true;
-        } elseif(!isset($this->northWest)) {
+        } elseif (!isset($this->northWest)) {
             // Otherwise we split this node into NW/NE/SE/SW quadrants
             $this->subdivide();
         }
 
         // Insert the point into the appropriate quadrant, and finish
-        if ($this->northWest->insert($point)) return true;
-        if ($this->northEast->insert($point)) return true;
-        if ($this->southWest->insert($point)) return true;
-        if ($this->southEast->insert($point)) return true;
+        if (($this->northWest->insert($point)) || ($this->northEast->insert($point)) ||
+            ($this->southWest->insert($point)) || ($this->southEast->insert($point))) {
+            return true;
+        }
 
         // If we couldn't insert the new point, then we have an exception situation
         throw new OutOfBoundsException('Point is outside bounding box');
@@ -120,7 +125,8 @@ class QuadTree
      *
      * @return   null
      **/
-    protected function subdivide() {
+    protected function subdivide()
+    {
         $width = $this->boundingBox->getWidth() / 2;
         $height = $this->boundingBox->getHeight() / 2;
         $centrePointX = $this->boundingBox->getCentrePoint()->getX();
@@ -179,11 +185,12 @@ class QuadTree
      * @param    QuadTreeBoundingBox    $boundary    The bounding box that we want to search
      * @return   QuadTreeXYPoint[]
      **/
-    public function search(QuadTreeBoundingBox $boundary) {
+    public function search(QuadTreeBoundingBox $boundary)
+    {
         $results = array();
         if ($this->boundingBox->encompasses($boundary) || $this->boundingBox->intersects($boundary)) {
             // Test each point that falls within the current QuadTree node
-            foreach($this->points as $point) {
+            foreach ($this->points as $point) {
                 // Test each point stored in this QuadTree node in turn, adding to the results array
                 //    if it falls within the bounding box
                 if ($boundary->containsPoint($point)) {
@@ -194,7 +201,7 @@ class QuadTree
             if (isset($this->northWest)) {
                 // ... search each child node in turn, merging with any existing results
                 $results = array_merge(
-                    $results, 
+                    $results,
                     $this->northWest->search($boundary),
                     $this->northEast->search($boundary),
                     $this->southWest->search($boundary),

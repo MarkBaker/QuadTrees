@@ -1,0 +1,19 @@
+{
+    "name": "MarkBaker/QuadTrees",
+    "type": "library",
+    "description": "QuadTree implementation in PHP",
+    "keywords": ["quadtree geospatial index"],
+    "homepage": "https://github.com/MarkBaker/QuadTrees",
+    "license": "LGPL",
+    "authors": [
+        {
+            "name": "Mark Baker",
+            "email": "mark@lange.demon.co.uk",
+            "homepage": "",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

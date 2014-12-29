@@ -2,7 +2,7 @@
 
 list(, $longitude, $latitude, $width, $height) = $argv + array(NULL, -2.5, 55, 9, 10);
 
-include('../src/QuadTreeAutoloader.php');
+include('../classes/Bootstrap.php');
 
 
 //  Create a class for our data,

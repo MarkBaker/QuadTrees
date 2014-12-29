@@ -41,9 +41,11 @@ class QuadTreeBoundingBox
      * @param   float            $width         The width of this bounding box
      * @param   float            $height        The height of this bounding box
      */
-    public function __construct(QuadTreeXYPoint $centrePoint, $width = 1.0, $height = 1.0) {
-        if (!is_numeric($width) || !is_numeric($height))
+    public function __construct(QuadTreeXYPoint $centrePoint, $width = 1.0, $height = 1.0)
+    {
+        if (!is_numeric($width) || !is_numeric($height)) {
             throw new \InvalidArgumentException("Bounding box width and height must be numeric values");
+        }
         $this->centrePoint = $centrePoint;
         $this->width = floatval($width);
         $this->height = floatval($height);
@@ -54,7 +56,8 @@ class QuadTreeBoundingBox
      *
      * @return  float                Value of the left-hand X (or Longitude) coordinate
      */
-    protected function startX() {
+    protected function startX()
+    {
         return $this->centrePoint->getX() - $this->width / 2;
     }
 
@@ -63,7 +66,8 @@ class QuadTreeBoundingBox
      *
      * @return  float                Value of the bottom Y (or Latitude) coordinate
      */
-    protected function startY() {
+    protected function startY()
+    {
         return $this->centrePoint->getY() - $this->height / 2;
     }
 
@@ -72,7 +76,8 @@ class QuadTreeBoundingBox
      *
      * @return  float                Value of the right-hand X (or Longitude) coordinate
      */
-    protected function endX() {
+    protected function endX()
+    {
         return $this->centrePoint->getX() + $this->width / 2;
     }
 
@@ -81,7 +86,8 @@ class QuadTreeBoundingBox
      *
      * @return  float                Value of the top Y (or Latitude) coordinate
      */
-    protected function endY() {
+    protected function endY()
+    {
         return $this->centrePoint->getY() + $this->height / 2;
     }
 
@@ -91,7 +97,8 @@ class QuadTreeBoundingBox
      * @param   float    $pointX       The specified X (or Longitude) coordinate to test
      * @return  boolean                Does the specified X coordinate fall within the range of this bounding box?
      */
-    protected function isXinRange($pointX) {
+    protected function isXinRange($pointX)
+    {
         return ($pointX >= $this->startX()) && ($pointX <= $this->endX());
     }
 
@@ -101,7 +108,8 @@ class QuadTreeBoundingBox
      * @param   float    $pointY       The specified Y (or Latitude) coordinate to test
      * @return  boolean                Does the specified Y coordinate fall within the range of this bounding box?
      */
-    protected function isYinRange($pointY) {
+    protected function isYinRange($pointY)
+    {
         return ($pointY >= $this->startY()) && ($pointY <= $this->endY());
     }
 
@@ -109,9 +117,11 @@ class QuadTreeBoundingBox
      * Identifies whether a specified X/Y point coordinate falls within the range of this bounding box?
      *
      * @param   QuadTreeXYPoint  $point   The specified X/Y point coordinate to test
-     * @return  boolean                   Does the specified X/Y point coordinate fall within the range of this bounding box?
+     * @return  boolean                   Does the specified X/Y point coordinate fall within the range of
+     *                                         this bounding box?
      */
-    public function containsPoint(QuadTreeXYPoint $point) {
+    public function containsPoint(QuadTreeXYPoint $point)
+    {
         return ($this->isXinRange($point->getX())) && ($this->isYinRange($point->getY()));
     }
 
@@ -121,7 +131,8 @@ class QuadTreeBoundingBox
      * @param   QuadTreeBoundingBox  $boundary   The specified bounding box to test
      * @return  boolean                          Does the specified bounding box intersect with this bounding box?
      */
-    public function intersects(QuadTreeBoundingBox $boundary) {
+    public function intersects(QuadTreeBoundingBox $boundary)
+    {
         return
             (($this->isXinRange($boundary->startX()) || $this->isXinRange($boundary->endX())) ||
             ($this->isYinRange($boundary->startY()) || $this->isYinRange($boundary->endY())));
@@ -131,9 +142,11 @@ class QuadTreeBoundingBox
      * Identifies whether a specified bounding box completely encompasses this bounding box?
      *
      * @param   QuadTreeBoundingBox  $boundary   The specified bounding box to test
-     * @return  boolean                          Does the specified bounding box completely encompasses this bounding box?
+     * @return  boolean                          Does the specified bounding box completely encompasses
+     *                                                this bounding box?
      */
-    public function encompasses(QuadTreeBoundingBox $boundary) {
+    public function encompasses(QuadTreeBoundingBox $boundary)
+    {
         return
             (($boundary->startX() <= $this->startX() && $boundary->endX() >= $this->endX()) &&
             ($boundary->startY() <= $this->startY() && $boundary->endY() >= $this->endY()));
@@ -144,7 +157,8 @@ class QuadTreeBoundingBox
      *
      * @return  QuadTreeXYPoint      Value of the Centre Point of this bounding box
      */
-    public function getCentrePoint() {
+    public function getCentrePoint()
+    {
         return $this->centrePoint;
     }
 
@@ -153,7 +167,8 @@ class QuadTreeBoundingBox
      *
      * @return  float                Value of the Width of this bounding box
      */
-    public function getWidth() {
+    public function getWidth()
+    {
         return $this->width;
     }
 
@@ -162,7 +177,8 @@ class QuadTreeBoundingBox
      *
      * @return  float                Value of the Height of this bounding box
      */
-    public function getHeight() {
+    public function getHeight()
+    {
         return $this->height;
     }
 }
