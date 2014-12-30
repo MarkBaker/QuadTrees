@@ -1,5 +1,5 @@
 {
-    "name": "MarkBaker/QuadTrees",
+    "name": "markbaker/quadtrees",
     "type": "library",
     "description": "QuadTree implementation in PHP",
     "keywords": ["quadtree geospatial index"],
