@@ -117,7 +117,7 @@ class QuadTree
         }
 
         // If we couldn't insert the new point, then we have an exception situation
-        throw new OutOfBoundsException('Point is outside bounding box');
+        throw new \OutOfBoundsException('Point is outside bounding box');
     }
 
     /**
