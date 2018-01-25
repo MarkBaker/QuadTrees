@@ -4,7 +4,7 @@
     "description": "QuadTree implementation in PHP",
     "keywords": ["quadtree geospatial index"],
     "homepage": "https://github.com/MarkBaker/QuadTrees",
-    "license": "LGPL",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Mark Baker",
