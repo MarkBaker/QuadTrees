@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright © `2017` `Mark Baker`
+Copyright © `2018` `Mark Baker`
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
