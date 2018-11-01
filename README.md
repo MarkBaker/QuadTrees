@@ -5,7 +5,7 @@ A PHP implementation of the QuadTree data structure
 
 
 ## Requirements
- * PHP version 5.3.0 or higher
+ * PHP version 7.0.0 or higher
 
 
 ## Installation

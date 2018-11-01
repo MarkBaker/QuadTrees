@@ -2,14 +2,13 @@
 
 namespace QuadTrees;
 
-
 /**
  *
- * Autoloader for QuadTrees classes
+ * Autoloader for QuadTree classes
  *
  * @package QuadTrees
- * @copyright  Copyright (c) 2013 Mark Baker (https://github.com/MarkBaker/QuadTrees)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @copyright  Copyright (c) 2014 Mark Baker (https://github.com/MarkBaker/QuadTrees)
+ * @license    https://opensource.org/licenses/MIT          MIT
  */
 class Autoloader
 {
@@ -17,13 +16,15 @@ class Autoloader
      * Register the Autoloader with SPL
      *
      */
-    public static function Register() {
+    public static function Register()
+    {
         if (function_exists('__autoload')) {
             //    Register any existing autoloader function with SPL, so we don't get any clashes
             spl_autoload_register('__autoload');
         }
+
         //    Register ourselves with SPL
-        return spl_autoload_register(array('QuadTrees\Autoloader', 'Load'));
+        return spl_autoload_register(['QuadTrees\\Autoloader', 'Load']);
     }
 
 
@@ -32,20 +33,21 @@ class Autoloader
      *
      * @param    string    $pClassName    Name of the object to load
      */
-    public static function Load($pClassName) {
-        if ((class_exists($pClassName, FALSE)) || (strpos($pClassName, 'QuadTrees\\') !== 0)) {
-            // Either already loaded, or not a QuadTree class request
-            return FALSE;
+    public static function Load($pClassName)
+    {
+        if ((class_exists($pClassName, false)) || (strpos($pClassName, 'QuadTrees\\') !== 0)) {
+            // Either already loaded, or not a QuadTrees class request
+            return false;
         }
 
         $pClassFilePath = __DIR__ . DIRECTORY_SEPARATOR .
                           'src' . DIRECTORY_SEPARATOR .
-                          str_replace('QuadTrees\\', '', $pClassName) .
+                          str_replace(['QuadTrees\\', '\\'], ['', '/'], $pClassName) .
                           '.php';
 
-        if ((file_exists($pClassFilePath) === FALSE) || (is_readable($pClassFilePath) === FALSE)) {
+        if ((file_exists($pClassFilePath) === false) || (is_readable($pClassFilePath) === false)) {
             // Can't load
-            return FALSE;
+            return false;
         }
         require($pClassFilePath);
     }

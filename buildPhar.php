@@ -20,7 +20,7 @@ $metaData = array(
     'Description' => 'PHP Classes for QuadTree datastructures',
     'Copyright'   => 'Mark Baker (c) 2013-' . date('Y'),
     'Timestamp'   => time(),
-    'Version'     => '0.1',
+    'Version'     => '2.0',
     'Date'        => date('Y-m-d')
 );
 
