@@ -3,6 +3,9 @@ QuadTrees
 
 A PHP implementation of the QuadTree data structure
 
+Master: [![Build Status](https://travis-ci.org/MarkBaker/QuadTrees.png?branch=master)](http://travis-ci.org/MarkBaker/QuadTrees)
+
+Develop: [![Build Status](https://travis-ci.org/MarkBaker/QuadTrees.png?branch=develop)](http://travis-ci.org/MarkBaker/QuadTrees)
 
 ## Requirements
  * PHP version 7.0.0 or higher
