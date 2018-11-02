@@ -6,13 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class BoundingBoxTest extends TestCase
 {
-    public function testInstantiate()
-    {
-        $this->expectException(\ArgumentCountError::class);
-
-        new BoundingBox();
-    }
-
     public function testInstantiateWithCoordinate()
     {
         $boundingBoxObject = new BoundingBox(new Coordinate());
