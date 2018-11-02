@@ -57,7 +57,7 @@ class BoundingBox
      */
     public function topLatitude() : float
     {
-        return $this->centrePoint->getLatitude() - $this->height / 2;
+        return $this->centrePoint->getLatitude() + $this->height / 2;
     }
 
     /**
@@ -77,7 +77,7 @@ class BoundingBox
      */
     public function bottomLatitude() : float
     {
-        return $this->centrePoint->getLatitude() + $this->height / 2;
+        return $this->centrePoint->getLatitude() - $this->height / 2;
     }
 
     /**
@@ -86,7 +86,7 @@ class BoundingBox
      * @param float $longitude
      * @return bool
      */
-    private function isLongitudeinBoundingBox(float $longitude) : bool
+    public function isLongitudeinBoundingBox(float $longitude) : bool
     {
         return ($longitude >= $this->leftLongitude()) && ($longitude <= $this->rightLongitude());
     }
@@ -97,9 +97,9 @@ class BoundingBox
      * @param float $latitude
      * @return bool
      */
-    private function isLatitudeinBoundingBox(float $latitude) : bool
+    public function isLatitudeinBoundingBox(float $latitude) : bool
     {
-        return ($latitude >= $this->topLatitude()) && ($latitude <= $this->bottomLatitude());
+        return ($latitude <= $this->topLatitude()) && ($latitude >= $this->bottomLatitude());
     }
 
     /**

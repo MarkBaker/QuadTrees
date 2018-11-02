@@ -86,7 +86,7 @@ $left = sprintf('%+2f', $searchBoundingBox->leftLongitude());
 echo <<<EOT
 Cities in range
     Latitude: $top -> $bottom
-    Longitude: $right -> $left
+    Longitude: $left -> $right
 
 EOT;
 

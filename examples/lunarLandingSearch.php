@@ -86,9 +86,9 @@ $left = sprintf('%+2f', $searchBoundingBox->leftLongitude());
 
 //  Display the results
 echo <<<EOT
-LunarLandings in range'
+LunarLandings in range
     Latitude: $top -> $bottom
-    Longitude: $right -> $left
+    Longitude: $left -> $right
 
 EOT;
 
@@ -96,7 +96,7 @@ EOT;
 /** @var LunarLandingPoint $result */
 foreach ($lunarLandingsQuadTree->search($searchBoundingBox) as $result) {
     echo '    ', $result->name, ",\tLaunched: ",
-        $result->launchDate->format('d-M-Y'), "  Lat: ",
+        $result->launchDate->format('d-M-Y'),
         ",\tLanded: ",
         $result->impactDate->format('d-M-Y'), "  Lat: ",
         sprintf('%+07.2f', $result->getLatitude()), " Long: ",
