@@ -2,9 +2,9 @@
 
 namespace QuadTrees;
 
-use QuadTrees\Coordinate;
+use PHPUnit\Framework\TestCase;
 
-class CoordinateTest extends \PHPUnit\Framework\TestCase
+class CoordinateTest extends TestCase
 {
     public function testInstantiate()
     {
@@ -31,5 +31,4 @@ class CoordinateTest extends \PHPUnit\Framework\TestCase
         $defaultCoordinateLatitude = $coordinateObject->getLatitude();
         $this->assertEquals(56.78, $defaultCoordinateLatitude);
     }
-
 }

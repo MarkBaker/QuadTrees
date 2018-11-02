@@ -86,7 +86,7 @@ class BoundingBox
      * @param float $longitude
      * @return bool
      */
-    public function isLongitudeinBoundingBox(float $longitude) : bool
+    public function isLongitudeInBoundingBox(float $longitude) : bool
     {
         return ($longitude >= $this->leftLongitude()) && ($longitude <= $this->rightLongitude());
     }
@@ -97,25 +97,25 @@ class BoundingBox
      * @param float $latitude
      * @return bool
      */
-    public function isLatitudeinBoundingBox(float $latitude) : bool
+    public function isLatitudeInBoundingBox(float $latitude) : bool
     {
         return ($latitude <= $this->topLatitude()) && ($latitude >= $this->bottomLatitude());
     }
 
     /**
-     * Identifies whether a specified Coordinate point falls within the range of this Bounding Box
+     * Identify whether a specified Coordinate point falls within the range of this Bounding Box
      *
      * @param Coordinate $point
      * @return bool
      */
     public function isPointWithinBoundingBox(Coordinate $point) : bool
     {
-        return ($this->isLongitudeinBoundingBox($point->getLongitude()))
-            && ($this->isLatitudeinBoundingBox($point->getLatitude()));
+        return ($this->isLongitudeInBoundingBox($point->getLongitude()))
+            && ($this->isLatitudeInBoundingBox($point->getLatitude()));
     }
 
     /**
-     * Identfies whether this Bounding Box intersects with another specified Bounding Box
+     * Identify whether this Bounding Box intersects with another specified Bounding Box
      *
      * @param BoundingBox $boundary
      * @return bool
@@ -123,28 +123,13 @@ class BoundingBox
     public function intersectsWith(BoundingBox $boundary) : bool
     {
         return
-            (($this->isLongitudeinBoundingBox($boundary->leftLongitude())
-                    || $this->isLongitudeinBoundingBox($boundary->rightLongitude())
+            (($this->isLongitudeInBoundingBox($boundary->leftLongitude())
+                    || $this->isLongitudeInBoundingBox($boundary->rightLongitude())
                 )
-                || ($this->isLatitudeinBoundingBox($boundary->topLatitude())
-                    || $this->isLatitudeinBoundingBox($boundary->bottomLatitude())
+                || ($this->isLatitudeInBoundingBox($boundary->topLatitude())
+                    || $this->isLatitudeInBoundingBox($boundary->bottomLatitude())
                 )
             );
-    }
-
-    /**
-     * @param BoundingBox $boundary
-     * @return bool
-     */
-    public function encompasses(BoundingBox $boundary) : bool
-    {
-        return
-            (($boundary->leftLongitude() <= $this->leftLongitude()
-                    && $boundary->rightLongitude() >= $this->rightLongitude()
-                ) &&
-            ($boundary->topLatitude() <= $this->topLatitude()
-                && $boundary->bottomLatitude() >= $this->bottomLatitude()
-            ));
     }
 
     /**

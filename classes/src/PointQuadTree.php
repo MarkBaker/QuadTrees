@@ -189,8 +189,7 @@ class PointQuadTree
      */
     public function search(BoundingBox $boundary) : \Iterator
     {
-        if ($this->boundingBox->encompasses($boundary) ||
-            $this->boundingBox->intersectsWith($boundary)) {
+        if ($this->boundingBox->intersectsWith($boundary)) {
             // Test each point that falls within the current QuadTree node
             foreach ($this->points as $point) {
                 // Test each point stored in this QuadTree node in turn,
