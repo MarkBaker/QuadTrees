@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<phpunit bootstrap="./unitTests/bootstrap.php"
+<phpunit bootstrap="./bootstrap.php"
     backupGlobals="true"
     colors="true" 
     convertErrorsToExceptions="true" 
@@ -16,20 +16,20 @@
     <php>
         <ini name="memory_limit" value="2048M"/>
     </php>
-    <testsuite name="QudTrees Unit Test Suite">
-        <directory suffix="Test.php">./unitTests/classes</directory>
+    <testsuite name="CQuadTrees Unit Test Suite">
+        <directory suffix="Test.php">./classes</directory>
     </testsuite>
     <filter>
         <whitelist>
-            <directory suffix=".php">../unitTests/classes</directory>
+            <directory suffix=".php">../classes</directory>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="./unitTests/codeCoverage" charset="UTF-8"
+        <log type="coverage-html" target="./codeCoverage" charset="UTF-8"
              yui="true" highlight="false"
              lowUpperBound="35" highLowerBound="70"/>
-        <log type="coverage-clover" target="./unitTests/codeCoverage/codeCoverage.xml"/>
-        <log type="metrics-xml" target="./unitTests/metrics/metrics.xml"/>
-        <log type="test-xml" target="./unitTests/testResults/logfile.xml" logIncompleteSkipped="false"/>
+        <log type="coverage-clover" target="./codeCoverage/codeCoverage.xml"/>
+        <log type="metrics-xml" target="./metrics/metrics.xml"/>
+        <log type="test-xml" target="./testResults/logfile.xml" logIncompleteSkipped="false"/>
     </logging>
 </phpunit> 

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="PHPComplex">
-    <description>The code standard for PHPComplex is PSR2.</description>
+<ruleset name="QudTrees">
+    <description>The code standard for QudTrees is PSR2.</description>
 
     <!--
     #############################################################################
@@ -34,7 +34,7 @@
     -->
 
     <!-- ##### Check PHP cross-version compatibility ##### -->
-    <config name="testVersion" value="5.6-"/>
+    <config name="testVersion" value="7.0-"/>
     <rule ref="PHPCompatibility"/>
 
 
