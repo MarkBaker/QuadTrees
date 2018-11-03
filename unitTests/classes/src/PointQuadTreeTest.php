@@ -8,7 +8,7 @@ class PointQUadTreeTest extends TestCase
 {
     public function testInstantiate()
     {
-        $quadTreeObject = new PointQUadTree(new BoundingBox(new Coordinate()));
+        $quadTreeObject = new PointQuadTree(new BoundingBox(new Coordinate()));
         //    Must return an object...
         $this->assertTrue(is_object($quadTreeObject));
         //    ... of the correct type
@@ -56,7 +56,7 @@ class PointQUadTreeTest extends TestCase
 
     public function testInsert()
     {
-        $quadTreeObject = new PointQUadTree(new BoundingBox(new Coordinate()), 100);
+        $quadTreeObject = new PointQuadTree(new BoundingBox(new Coordinate()), 100);
 
         foreach ($this->coordinateData as $coordinate) {
             $quadTreeObject->insert(new Coordinate(...$coordinate));
@@ -67,7 +67,7 @@ class PointQUadTreeTest extends TestCase
 
     public function testSearch()
     {
-        $quadTreeObject = new PointQUadTree(new BoundingBox(new Coordinate()), 2);
+        $quadTreeObject = new PointQuadTree(new BoundingBox(new Coordinate()), 2);
 
         foreach ($this->coordinateData as $coordinate) {
             $quadTreeObject->insert(new Coordinate(...$coordinate));
