@@ -122,14 +122,44 @@ class BoundingBox
      */
     public function intersectsWith(BoundingBox $boundary) : bool
     {
+        return (abs($this->centrePoint->getLongitude() - $boundary->centrePoint->getLongitude()) * 2
+            <= ($this->width + $boundary->width))
+        && (abs($this->centrePoint->getLatitude() - $boundary->centrePoint->getLatitude()) * 2
+            <= ($this->height + $boundary->height));
+    }
+
+    /**
+     * Identify whether this Bounding Box is encompassed by the specified Bounding Bax
+     *
+     * @param BoundingBox $boundary
+     * @return bool
+     */
+    public function isEncompassedBy(BoundingBox $boundary) : bool
+    {
         return
-            (($this->isLongitudeInBoundingBox($boundary->leftLongitude())
-                    || $this->isLongitudeInBoundingBox($boundary->rightLongitude())
-                )
-                || ($this->isLatitudeInBoundingBox($boundary->topLatitude())
-                    || $this->isLatitudeInBoundingBox($boundary->bottomLatitude())
-                )
-            );
+            (($boundary->leftLongitude() <= $this->leftLongitude()
+                    && $boundary->rightLongitude() >= $this->rightLongitude()
+                ) &&
+                ($boundary->topLatitude() >= $this->topLatitude()
+                    && $boundary->bottomLatitude() <= $this->bottomLatitude()
+                ));
+    }
+
+    /**
+     * Identify whether this Bounding Box encompasses the specified Bounding Bax
+     *
+     * @param BoundingBox $boundary
+     * @return bool
+     */
+    public function encompasses(BoundingBox $boundary) : bool
+    {
+        return
+            (($boundary->leftLongitude() >= $this->leftLongitude()
+                    && $boundary->rightLongitude() <= $this->rightLongitude()
+                ) &&
+                ($boundary->topLatitude() <= $this->topLatitude()
+                    && $boundary->bottomLatitude() >= $this->bottomLatitude()
+                ));
     }
 
     /**

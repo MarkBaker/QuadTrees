@@ -181,6 +181,27 @@ class PointQuadTree
     }
 
     /**
+     * Get the number of points stored in this BoundingBox and its segments
+     *
+     * @return int
+     */
+    public function countPoints() : int
+    {
+        $count = count($this->points);
+
+        // If we have child QuadTree nodes....
+        if ($this->isSegmented()) {
+            // ... search each child node in turn, adding to the existing result
+            $count += $this->northWest->countPoints();
+            $count += $this->northEast->countPoints();
+            $count += $this->southWest->countPoints();
+            $count += $this->southEast->countPoints();
+        }
+
+        return $count;
+    }
+
+    /**
      * Search this QuadTree Node (and all of its child nodes) for any Coordinates that fall within the
      *      specified Bounding Box
      *
@@ -189,7 +210,8 @@ class PointQuadTree
      */
     public function search(BoundingBox $boundary) : \Iterator
     {
-        if ($this->boundingBox->intersectsWith($boundary)) {
+        if ($this->boundingBox->isEncompassedBy($boundary) ||
+            $this->boundingBox->intersectsWith($boundary)) {
             // Test each point that falls within the current QuadTree node
             foreach ($this->points as $point) {
                 // Test each point stored in this QuadTree node in turn,

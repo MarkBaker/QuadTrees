@@ -97,9 +97,30 @@ class BoundingBoxTest extends TestCase
 
     public function testIntersectsWith()
     {
+        $boundingBoxObject = new BoundingBox(new Coordinate(125.0, -45.0), 10, 10);
+
+        $this->assertTrue($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(125.0, -45.0), 5, 5)));
+        $this->assertTrue($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(125.0, -35.0), 5, 15)));
+        $this->assertTrue($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(125.0, -45.0), 5, 30)));
+        $this->assertFalse($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(125.0, -55.0), 50, 5)));
+        $this->assertFalse($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(110.0, -45.0), 5, 50)));
+    }
+
+    public function testIsEncompassedBy()
+    {
         $boundingBoxObject = new BoundingBox(new Coordinate(125.0, -45.0), 7, 9);
 
-        $this->assertTrue($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(120.0, -40.0), 7, 9)));
-        $this->assertTrue($boundingBoxObject->intersectsWith(new BoundingBox(new Coordinate(125.0, -45.0), 3.5, 4.5)));
+        $this->assertTrue($boundingBoxObject->isEncompassedBy(new BoundingBox(new Coordinate(125.0, -45.0), 8, 10)));
+        $this->assertTrue($boundingBoxObject->isEncompassedBy(new BoundingBox(new Coordinate(125.0, -35.0), 7, 30)));
+        $this->assertFalse($boundingBoxObject->isEncompassedBy(new BoundingBox(new Coordinate(125.0, -45.0), 4, 4)));
+    }
+
+    public function testEncompasses()
+    {
+        $boundingBoxObject = new BoundingBox(new Coordinate(125.0, -45.0), 7, 9);
+
+        $this->assertTrue($boundingBoxObject->encompasses(new BoundingBox(new Coordinate(125.0, -45.0), 4, 4)));
+        $this->assertFalse($boundingBoxObject->encompasses(new BoundingBox(new Coordinate(125.0, -45.0), 8, 10)));
+        $this->assertFalse($boundingBoxObject->encompasses(new BoundingBox(new Coordinate(125.0, -35.0), 7, 30)));
     }
 }
