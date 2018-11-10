@@ -76,7 +76,7 @@ Fork this library!
 
 
 ## License
-QuadTrees is licensed under an [MIT LICENSE)](https://github.com/MarkBaker/Tries/blob/master/LICENSE.md)
+QuadTrees is licensed under an [MIT LICENSE)](https://github.com/MarkBaker/Quadtrees/blob/master/license.md)
 
 
 
