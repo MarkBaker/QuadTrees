@@ -76,7 +76,8 @@ Fork this library!
 
 
 ## License
-QuadTrees is licensed under [LGPL (GNU LESSER GENERAL PUBLIC LICENSE)](https://github.com/MarkBaker/QuadTrees/blob/master/LICENSE.md)
+QuadTrees is licensed under an [MIT LICENSE)](https://github.com/MarkBaker/Tries/blob/master/LICENSE.md)
+
 
 
 ## Examples

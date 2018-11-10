@@ -1,7 +1,6 @@
 <?php
 namespace QuadTrees;
 
-use DeepCopy\f006\B;
 use PHPUnit\Framework\TestCase;
 
 class PointQUadTreeTest extends TestCase
