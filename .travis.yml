@@ -17,8 +17,8 @@ cache:
 
 php:
   - 7.1
+  - 7.4snapshot
   - nightly
-  - hhvm
 
 matrix:
   fast_finish: true
@@ -31,7 +31,6 @@ matrix:
       env: COVERAGE=1
       dist: precise
   allow_failures:
-    - php: hhvm
     - php: nightly
 
 before_install:
